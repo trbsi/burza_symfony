@@ -1,0 +1,7 @@
+tweet_proxy:
+    resource: "@TweetProxyBundle/Resources/config/routing.php"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
