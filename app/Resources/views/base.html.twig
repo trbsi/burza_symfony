@@ -24,6 +24,19 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style type="text/css">
+        div[class*="col"]
+        {
+            border-top: 1px solid #CCCCCC;
+            border-bottom: 1px solid #CCCCCC;
+
+        }
+        .main 
+        {
+            padding: 10px 0 10px 0;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -61,16 +74,18 @@
         </div>
         <!-- /.container -->
     </nav>
-
+    
     <!-- Page Content -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 main">
+
                 {% block body %}{% endblock %}
                 {% block javascripts %}{% endblock %}
             </div>
         </div>
     </div>
+
     <!-- /.container -->
 
     <!-- jQuery -->
