@@ -20,8 +20,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder("t")
             ->orderBy('t.username', 'ASC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function findAllWithTweets()

@@ -102,9 +102,21 @@ class DefaultController extends Controller
 
     public function searchAction(Request $request)
     {
-        $request->query->get('id');
-        die();
-        return $this->render('TweetProxyBundle:Default:index.html.twig');
+        $term = $request->query->get('term');
+        $user_id = $request->query->get('user_id');
+
+        $doctrine = $this->getDoctrine();
+        $results = $doctrine->getRepository('TweetProxyBundle:Tweets')->searchTweets($doctrine, $term, $user_id);
+
+        //pagination
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $results,
+            $this->container->get('request_stack')->getCurrentRequest()->query->get('page', 1),
+            20
+        );
+
+        return $this->render('TweetProxyBundle:Default:search.html.twig', ['pagination' => $pagination]);
     }
 
 }

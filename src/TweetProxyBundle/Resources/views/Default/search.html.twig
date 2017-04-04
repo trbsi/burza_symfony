@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="count">
+        Total Pages: {{ pagination.getTotalItemCount }}
+    </div>
+    <hr>
+    <table class="table table-bordered table-stripped table-hover">
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>User</th>
+            <th>Tweet</th>
+        </tr>
+
+        {# table body #}
+        {% for result in pagination %}
+            <tr>
+                <td><a href="{{ url('profile', {'username': result.username}) }}" >{{ result.username }}</a></td>
+                <td>{{ result.tweet }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
+

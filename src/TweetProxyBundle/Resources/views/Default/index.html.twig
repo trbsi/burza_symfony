@@ -21,8 +21,8 @@
         </div>
         <div class="form-group">
             <label>and/or Username</label>
-            <select name="username" class="form-control">
-                <option> -</option>
+            <select name="user_id" class="form-control">
+                <option value=""> -</option>
                 {% for result in dropDownUsers %}
                     <option value="{{ result.id }}"> {{ result.username }}</option>
                 {% endfor %}
