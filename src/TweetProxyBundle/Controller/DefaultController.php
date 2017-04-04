@@ -3,18 +3,31 @@
 namespace TweetProxyBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Abraham\TwitterOAuth\TwitterOAuth;
 
 class DefaultController extends Controller
 {
 	//https://twitteroauth.com/
     public function indexAction()
     {
-        return $this->render('TweetProxyBundle:Default:index.html.twig');
+        $repository = $this->getDoctrine()->getRepository('TweetProxyBundle:User');
+        $query = $repository->findAll();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->container->get('request_stack')->getCurrentRequest()->query->get('page', 1),
+            20
+        );
+
+        // parameters to template
+        return $this->render('TweetProxyBundle:Default:index.html.twig', array('pagination' => $pagination));
     }
 
-    public function addUserAction($username)
+    public function addUserAction(Request $request)
     {
-    	var_dump($username); die();
+        var_dump($request->request->get('username')); die();
         return $this->render('TweetProxyBundle:Default:index.html.twig');
     }
 

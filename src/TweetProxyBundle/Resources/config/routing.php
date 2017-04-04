@@ -9,7 +9,7 @@ $collection->add('tweet_proxy_homepage', new Route('/', array(
     '_controller' => 'TweetProxyBundle:Default:index',
 )));
 
-$collection->add('add_user', new Route('/add_user/{username}', array(
+$collection->add('add_user', new Route('/add_user', array(
     '_controller' => 'TweetProxyBundle:Default:addUser',
 )));
 
