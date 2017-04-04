@@ -34,6 +34,7 @@ class TweetsRepository extends \Doctrine\ORM\EntityRepository
                 WHERE MATCH (tweet) AGAINST (:term IN BOOLEAN MODE) AND user_id = :user_id
             ';
             $param["user_id"] = $user_id;
+            $param["term"] = $term;
         } elseif ($term != NULL) {
             $query = '
                 SELECT tweets.*, user.username
@@ -45,10 +46,10 @@ class TweetsRepository extends \Doctrine\ORM\EntityRepository
         } elseif ($user_id != NULL) {
             $query = '
                 SELECT tweets.*, user.username
+                FROM tweets
                 INNER JOIN user ON (user.id = tweets.user_id)
-                FROM tweets WHERE user_id = :user_id';
+                WHERE user_id = :user_id';
             $param["user_id"] = $user_id;
-            $param["term"] = $term;
         }
 
         $stmt = $em->getConnection()->prepare($query);
