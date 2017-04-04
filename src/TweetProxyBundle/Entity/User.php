@@ -38,7 +38,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=100)
+     * @ORM\Column(name="url", type="string", length=100, nullable=true)
      */
     private $url;
 

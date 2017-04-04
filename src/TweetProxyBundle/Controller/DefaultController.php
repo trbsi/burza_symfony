@@ -5,6 +5,7 @@ namespace TweetProxyBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use TweetProxyBundle\Helper\Twitter;
+use TweetProxyBundle\Entity\User;
 
 class DefaultController extends Controller
 {
@@ -43,13 +44,37 @@ class DefaultController extends Controller
             );
 
             return $this->redirectToRoute("tweet_proxy_homepage");
-        }
-        else
-        {
+        } else {
+            //check if user exists
+            $result = $this->getDoctrine()->getRepository('TweetProxyBundle:User')->findByUsername($statuses->screen_name);
+            if (!empty($result)) {
+                $this->addFlash(
+                    'warning',
+                    'This user already exists'
+                );
 
-        }
+                return $this->redirectToRoute("tweet_proxy_homepage");
+            }
 
-        return $this->render('TweetProxyBundle:Default:index.html.twig');
+
+            $User = new User;
+            $User->setName($statuses->name);
+            $User->setUsername($statuses->screen_name);
+            $User->setUrl($statuses->url);
+            $User->setDescription($statuses->description);
+            $em = $this->getDoctrine()->getManager();
+            // tells Doctrine you want to (eventually) save the Product (no queries yet)
+            $em->persist($User);
+            // actually executes the queries (i.e. the INSERT query)
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'User has been added'
+            );
+
+            return $this->redirectToRoute("tweet_proxy_homepage");
+        }
     }
 
     public function userListAction()

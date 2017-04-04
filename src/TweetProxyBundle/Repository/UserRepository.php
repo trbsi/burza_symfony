@@ -14,4 +14,15 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder("t");
     }
+
+    public function findByUsername($username)
+    {
+        $query = $this->createQueryBuilder("t")
+        ->where('t.username = :username')
+        ->setParameter('username', $username)
+        ->getQuery()
+        ;
+
+        return $query->getOneOrNullResult();
+    }
 }
