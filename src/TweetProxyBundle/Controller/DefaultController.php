@@ -22,8 +22,11 @@ class DefaultController extends Controller
             20
         );
 
+        //get users for a dropdown
+        $dropDownUsers = $repository->findAllCustom();
+
         // parameters to template
-        return $this->render('TweetProxyBundle:Default:index.html.twig', array('pagination' => $pagination));
+        return $this->render('TweetProxyBundle:Default:index.html.twig', array('pagination' => $pagination, 'dropDownUsers' => $dropDownUsers));
     }
 
     public function addUserAction(Request $request)
@@ -97,9 +100,9 @@ class DefaultController extends Controller
         return $this->render('TweetProxyBundle:Default:profile.html.twig', ['result' => $result, 'tweets' => $tweets]);
     }
 
-    public function searchAction($term)
+    public function searchAction(Request $request)
     {
-        var_dump($username);
+        $request->query->get('id');
         die();
         return $this->render('TweetProxyBundle:Default:index.html.twig');
     }

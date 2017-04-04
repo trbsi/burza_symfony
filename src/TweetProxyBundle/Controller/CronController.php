@@ -20,7 +20,7 @@ class CronController extends Controller
             if (empty($tweets)) {
                 continue;
             }
-            
+
             foreach ($tweets as $tweet) {
 
                 if ($tweet->id > $result["tweetId"]) {

@@ -18,13 +18,13 @@ $collection->add('profile', new Route('/{username}', array(
     '_controller' => 'TweetProxyBundle:Default:profile',
 )));
 
-$collection->add('search', new Route('/search/{term}', array(
+$collection->add('search_tweet', new Route('/tweet_search', array(
     '_controller' => 'TweetProxyBundle:Default:search',
 )));
 
 
 //CRON
-$collection->add('search', new Route('/cron/fetch-tweet', array(
+$collection->add('cron_fetch_tweet', new Route('/cron/fetch-tweet', array(
     '_controller' => 'TweetProxyBundle:Cron:fetchTweet',
 )));
 

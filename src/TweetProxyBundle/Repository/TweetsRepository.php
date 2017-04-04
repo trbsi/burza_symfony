@@ -18,7 +18,11 @@ class TweetsRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($limit)
             ->orderBy("tweet.createdAt", 'DESC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
+    }
+
+    public function searchTweets($term = NULL, $user_id = NULL)
+    {
+
     }
 }

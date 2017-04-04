@@ -15,16 +15,24 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder("t");
     }
 
+    public function findAllCustom()
+    {
+        return $this->createQueryBuilder("t")
+            ->orderBy('t.username', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findAllWithTweets()
     {
         return $this->createQueryBuilder('userAlias')
             ->select('userAlias.id, userAlias.username, MAX(p.tweetId) AS tweetId')
-           // ->from('TweetProxyBundle:Tweets', 'tweetAlias')
+            // ->from('TweetProxyBundle:Tweets', 'tweetAlias')
             ->leftJoin('TweetProxyBundle:Tweets', 'p', 'WITH', 'p.userId = userAlias.id')
             ->groupBy('userAlias.id')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function findByUsername($username)
