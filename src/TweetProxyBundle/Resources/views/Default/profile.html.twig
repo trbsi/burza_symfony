@@ -13,5 +13,20 @@
             {{ result.description }}
         </div>
     </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-12">
+            TWEETS:
+            <ul>
+                {% for tweet in tweets %}
+                    <li>
+                        [{{ tweet.createdAt|date('Y-m-d H:i:s') }}] {{ tweet.tweet|raw }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
 

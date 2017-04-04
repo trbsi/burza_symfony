@@ -91,7 +91,10 @@ class DefaultController extends Controller
             return $this->redirectToRoute("tweet_proxy_homepage");
         }
 
-        return $this->render('TweetProxyBundle:Default:profile.html.twig', ['result' => $result]);
+        //get tweets
+        $tweets = $this->getDoctrine()->getRepository('TweetProxyBundle:Tweets')->getTweetsPerUser($result->getId());
+
+        return $this->render('TweetProxyBundle:Default:profile.html.twig', ['result' => $result, 'tweets' => $tweets]);
     }
 
     public function searchAction($term)
