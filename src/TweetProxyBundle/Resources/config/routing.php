@@ -13,11 +13,8 @@ $collection->add('add_user', new Route('/add_user', array(
     '_controller' => 'TweetProxyBundle:Default:addUser',
 )));
 
-$collection->add('user_list', new Route('/user_list', array(
-    '_controller' => 'TweetProxyBundle:Default:userList',
-)));
 
-$collection->add('profile', new Route('/profile/{username}', array(
+$collection->add('profile', new Route('/{username}', array(
     '_controller' => 'TweetProxyBundle:Default:profile',
 )));
 

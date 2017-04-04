@@ -49,6 +49,13 @@ class User
      */
     private $description;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profile_image", type="string", length=255, nullable=true)
+     */
+    private $profile_image;
+
 
     /**
      * Get id
@@ -155,5 +162,30 @@ class User
     {
         return $this->description;
     }
+
+    /**
+     * Get profile image
+     *
+     * @return string
+     */
+    public function getProfileImage()
+    {
+        return $this->profile_image;
+    }
+
+    /**
+     * Set profile image
+     *
+     * @param string $description
+     *
+     * @return User
+     */
+    public function setProfileImage($profile_image)
+    {
+        $this->profile_image = $profile_image;
+
+        return $this;
+    }
+
 }
 

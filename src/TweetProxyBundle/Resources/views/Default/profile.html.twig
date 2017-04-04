@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-2 col-sm-offset-3"><img src="{{ result.profileImage }}"></div>
+        <div class="col-sm-2"><a href="https://twitter.com/{{ result.username }}"
+                                 target="_blank">{{ result.username }}</a></div>
+        <div class="col-sm-2">({{ result.name }})</div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            {{ result.description }}
+        </div>
+    </div>
+{% endblock %}
+

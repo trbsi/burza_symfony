@@ -24,19 +24,6 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <style type="text/css">
-        div[class*="col"]
-        {
-            border-top: 1px solid #CCCCCC;
-            border-bottom: 1px solid #CCCCCC;
-
-        }
-        .main 
-        {
-            padding: 10px 0 10px 0;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -60,7 +47,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="{{ url('tweet_proxy_homepage') }} }}">All users</a>
                     </li>
                     <li>
                         <a href="#">Services</a>
@@ -77,6 +64,7 @@
     
     <!-- Page Content -->
     <div class="container">
+        <hr>
         <div class="row">
             <div class="col-lg-12 main">
                 {# ...or you can read and display every flash message available #}
@@ -92,6 +80,7 @@
                 {% block javascripts %}{% endblock %}
             </div>
         </div>
+        <hr>
     </div>
 
     <!-- /.container -->

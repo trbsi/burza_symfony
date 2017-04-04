@@ -62,6 +62,7 @@ class DefaultController extends Controller
             $User->setUsername($statuses->screen_name);
             $User->setUrl($statuses->url);
             $User->setDescription($statuses->description);
+            $User->setProfileImage($statuses->profile_image_url);
             $em = $this->getDoctrine()->getManager();
             // tells Doctrine you want to (eventually) save the Product (no queries yet)
             $em->persist($User);
@@ -77,18 +78,20 @@ class DefaultController extends Controller
         }
     }
 
-    public function userListAction()
-    {
-        var_dump($username);
-        die();
-        return $this->render('TweetProxyBundle:Default:index.html.twig');
-    }
 
     public function profileAction($username)
     {
-        var_dump($username);
-        die();
-        return $this->render('TweetProxyBundle:Default:index.html.twig');
+        $result = $this->getDoctrine()->getRepository('TweetProxyBundle:User')->findByUsername($username);
+        if (empty($result)) {
+            $this->addFlash(
+                'warning',
+                'User doesn\'t exists'
+            );
+
+            return $this->redirectToRoute("tweet_proxy_homepage");
+        }
+
+        return $this->render('TweetProxyBundle:Default:profile.html.twig', ['result' => $result]);
     }
 
     public function searchAction($term)
