@@ -10,9 +10,21 @@ namespace TweetProxyBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAll()
+    public function findAllPagination()
     {
         return $this->createQueryBuilder("t");
+    }
+
+    public function findAllWithTweets()
+    {
+        return $this->createQueryBuilder('userAlias')
+            ->select('userAlias.id, userAlias.username, MAX(p.tweetId) AS tweetId')
+           // ->from('TweetProxyBundle:Tweets', 'tweetAlias')
+            ->leftJoin('TweetProxyBundle:Tweets', 'p', 'WITH', 'p.userId = userAlias.id')
+            ->groupBy('userAlias.id')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     public function findByUsername($username)

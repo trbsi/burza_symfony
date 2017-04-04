@@ -13,7 +13,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $repository = $this->getDoctrine()->getRepository('TweetProxyBundle:User');
-        $query = $repository->findAll();
+        $query = $repository->findAllPagination();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
