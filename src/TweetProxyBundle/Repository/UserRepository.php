@@ -10,8 +10,8 @@ namespace TweetProxyBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function findAll()
-	{
-		return $this->createQueryBuilder("t");
-	}
+    public function findAll()
+    {
+        return $this->createQueryBuilder("t");
+    }
 }

@@ -1,41 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-Add new user
-<form method="POST" action="{{ url('add_user') }}">
-<input type="text" name="username" placeholder="Username">
-<input type="submit" name="Submit">
-</form>
-<hr>
-<div class="count">
-    Total Pages: {{ pagination.getTotalItemCount }}
-</div>
-<table class="table table-bordered table-stripped table-hover">
-<tr>
-{# sorting of properties based on query components #}
-    <th>{{ knp_pagination_sortable(pagination, 'Id', 't.id') }}</th>
-    <th{% if pagination.isSorted('t.username') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Username', 't.username') }}</th>
-    <th>{{ knp_pagination_sortable(pagination, 'Name', 't.name') }}</th>
-    <th>URL</th>
-    <th>Description</th>
-    <th>View Profile</th>
-</tr>
+    Add new user
+    <form method="POST" action="{{ url('add_user') }}">
+        <input type="text" name="username" placeholder="Username">
+        <input type="submit" name="Submit">
+    </form>
+    <hr>
+    <div class="count">
+        Total Pages: {{ pagination.getTotalItemCount }}
+    </div>
+    <table class="table table-bordered table-stripped table-hover">
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 't.id') }}</th>
+            <th{% if pagination.isSorted('t.username') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Username', 't.username') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Name', 't.name') }}</th>
+            <th>URL</th>
+            <th>Description</th>
+            <th>View Profile</th>
+        </tr>
 
-{# table body #}
-{% for result in pagination %}
-<tr {% if loop.index is odd %}class="color"{% endif %}>
-    <td>{{ result.id }}</td>
-    <td>{{ result.username }}</td>
-    <td>{{ result.name }}</td>
-    <td><a href="{{ result.url }}">{{ result.url }}</a></td>
-    <td>{{ result.description }}</td>
-    <td><a href="{{ url('profile', {'username' : result.username}) }}">View Profile</a></td>
-</tr>
-{% endfor %}
-</table>
-{# display navigation #}
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-</div>
+        {# table body #}
+        {% for result in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ result.id }}</td>
+                <td>{{ result.username }}</td>
+                <td>{{ result.name }}</td>
+                <td><a href="{{ result.url }}">{{ result.url }}</a></td>
+                <td>{{ result.description }}</td>
+                <td><a href="{{ url('profile', {'username' : result.username}) }}">View Profile</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}
 
