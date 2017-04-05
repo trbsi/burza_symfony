@@ -36,7 +36,7 @@ class TweetsRepository extends \Doctrine\ORM\EntityRepository
         $em = $doctrine->getManager();
 
         $param = array();
-        if ($term !== null && $user_id !== null) {
+        if (!empty($term) && !empty($user_id)) {
             $query = '
                 SELECT tweets.*, user.username
                 FROM tweets
@@ -45,7 +45,7 @@ class TweetsRepository extends \Doctrine\ORM\EntityRepository
             ';
             $param['user_id'] = $user_id;
             $param['term'] = $term;
-        } elseif ($term !== null) {
+        } elseif (!empty($term)) {
             $query = '
                 SELECT tweets.*, user.username
                 FROM tweets
@@ -53,7 +53,7 @@ class TweetsRepository extends \Doctrine\ORM\EntityRepository
             WHERE MATCH (tweet) AGAINST (:term IN BOOLEAN MODE)
             ';
             $param['term'] = $term;
-        } elseif ($user_id !== null) {
+        } elseif (!empty($user_id)) {
             $query = '
                 SELECT tweets.*, user.username
                 FROM tweets

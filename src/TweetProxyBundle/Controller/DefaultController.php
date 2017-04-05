@@ -15,11 +15,16 @@ namespace TweetProxyBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use TweetProxyBundle\Entity\User;
+use TweetProxyBundle\Helper\Config;
 use TweetProxyBundle\Helper\Twitter;
 
 class DefaultController extends Controller
 {
-    //https://twitteroauth.com/
+    /**
+     * Show all users.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         $repository = $this->getDoctrine()->getRepository('TweetProxyBundle:User');
@@ -39,6 +44,13 @@ class DefaultController extends Controller
         return $this->render('TweetProxyBundle:Default:index.html.twig', array('pagination' => $pagination, 'dropDownUsers' => $dropDownUsers));
     }
 
+    /**
+     * Add new user via API.
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function addUserAction(Request $request)
     {
         $Twitter = new Twitter();
@@ -89,6 +101,13 @@ class DefaultController extends Controller
         return $this->redirectToRoute('tweet_proxy_homepage');
     }
 
+    /**
+     * Get single user profile.
+     *
+     * @param $username
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function profileAction($username)
     {
         $result = $this->getDoctrine()->getRepository('TweetProxyBundle:User')->findByUsername($username);
@@ -102,11 +121,18 @@ class DefaultController extends Controller
         }
 
         //get tweets
-        $tweets = $this->getDoctrine()->getRepository('TweetProxyBundle:Tweets')->getTweetsPerUser($result->getId());
+        $tweets = $this->getDoctrine()->getRepository('TweetProxyBundle:Tweets')->getTweetsPerUser($result->getId(), Config::TWEETS_PER_USER);
 
         return $this->render('TweetProxyBundle:Default:profile.html.twig', array('result' => $result, 'tweets' => $tweets));
     }
 
+    /**
+     * Search tweets.
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function searchAction(Request $request)
     {
         $term = $request->query->get('term');
@@ -120,7 +146,7 @@ class DefaultController extends Controller
         $pagination = $paginator->paginate(
             $results,
             $this->container->get('request_stack')->getCurrentRequest()->query->get('page', 1),
-            20
+            Config::SEARCH_RESULTS_PER_PAGE
         );
 
         return $this->render('TweetProxyBundle:Default:search.html.twig', array('pagination' => $pagination));
