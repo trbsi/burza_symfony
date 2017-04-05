@@ -15,7 +15,7 @@
         {# table body #}
         {% for result in pagination %}
             <tr>
-                <td><a href="{{ url('profile', {'username': result.username}) }}" >{{ result.username }}</a></td>
+                <td><a href="{{ url('profile', {'username': result.username}) }}">{{ result.username }}</a></td>
                 <td>{{ result.tweet }}</td>
             </tr>
         {% endfor %}

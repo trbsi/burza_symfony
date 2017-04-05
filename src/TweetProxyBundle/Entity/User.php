@@ -1,11 +1,21 @@
 <?php
 
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace TweetProxyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * User.
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="TweetProxyBundle\Repository\UserRepository")
@@ -56,9 +66,8 @@ class User
      */
     private $profile_image;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -68,7 +77,7 @@ class User
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      *
@@ -82,7 +91,7 @@ class User
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
@@ -92,7 +101,7 @@ class User
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -106,7 +115,7 @@ class User
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -116,7 +125,7 @@ class User
     }
 
     /**
-     * Set url
+     * Set url.
      *
      * @param string $url
      *
@@ -130,7 +139,7 @@ class User
     }
 
     /**
-     * Get url
+     * Get url.
      *
      * @return string
      */
@@ -140,7 +149,7 @@ class User
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -154,7 +163,7 @@ class User
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -164,7 +173,7 @@ class User
     }
 
     /**
-     * Get profile image
+     * Get profile image.
      *
      * @return string
      */
@@ -174,9 +183,10 @@ class User
     }
 
     /**
-     * Set profile image
+     * Set profile image.
      *
      * @param string $description
+     * @param mixed  $profile_image
      *
      * @return User
      */
@@ -186,6 +196,4 @@ class User
 
         return $this;
     }
-
 }
-

@@ -1,4 +1,15 @@
 <?php
+
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace TweetProxyBundle\Helper;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
@@ -15,15 +26,14 @@ class Twitter
 
     public function init()
     {
-        $connection = new TwitterOAuth
-        (
+        $connection = new TwitterOAuth(
             $this->consumer_key,
             $this->consumer_secret,
             $this->access_token,
             $this->access_token_secret
         );
-        $content = $connection->get("account/verify_credentials");
+        $content = $connection->get('account/verify_credentials');
+
         return $connection;
     }
-
 }

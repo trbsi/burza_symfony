@@ -1,11 +1,21 @@
 <?php
 
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace TweetProxyBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use TweetProxyBundle\Helper\Twitter;
 use TweetProxyBundle\Entity\User;
+use TweetProxyBundle\Helper\Twitter;
 
 class DefaultController extends Controller
 {
@@ -31,56 +41,53 @@ class DefaultController extends Controller
 
     public function addUserAction(Request $request)
     {
-        $Twitter = new Twitter;
+        $Twitter = new Twitter();
         $connection = $Twitter->init();
-        $statuses = $connection->get("users/show", ["screen_name" => $request->request->get('username')]);
+        $statuses = $connection->get('users/show', array('screen_name' => $request->request->get('username')));
 
         if (isset($statuses->errors)) {
-            $message = [];
+            $message = array();
             foreach ($statuses->errors as $key => $value) {
                 $message[] = $value->message;
             }
-            $message = implode("<br>", $message);
+            $message = implode('<br>', $message);
             $this->addFlash(
                 'warning',
                 $message
             );
 
-            return $this->redirectToRoute("tweet_proxy_homepage");
-        } else {
+            return $this->redirectToRoute('tweet_proxy_homepage');
+        }
             //check if user exists
             $result = $this->getDoctrine()->getRepository('TweetProxyBundle:User')->findByUsername($statuses->screen_name);
-            if (!empty($result)) {
-                $this->addFlash(
+        if (!empty($result)) {
+            $this->addFlash(
                     'warning',
                     'This user already exists'
                 );
 
-                return $this->redirectToRoute("tweet_proxy_homepage");
-            }
+            return $this->redirectToRoute('tweet_proxy_homepage');
+        }
 
-
-            $User = new User;
-            $User->setName($statuses->name);
-            $User->setUsername($statuses->screen_name);
-            $User->setUrl($statuses->url);
-            $User->setDescription($statuses->description);
-            $User->setProfileImage($statuses->profile_image_url);
-            $em = $this->getDoctrine()->getManager();
+        $User = new User();
+        $User->setName($statuses->name);
+        $User->setUsername($statuses->screen_name);
+        $User->setUrl($statuses->url);
+        $User->setDescription($statuses->description);
+        $User->setProfileImage($statuses->profile_image_url);
+        $em = $this->getDoctrine()->getManager();
             // tells Doctrine you want to (eventually) save the Product (no queries yet)
             $em->persist($User);
             // actually executes the queries (i.e. the INSERT query)
             $em->flush();
 
-            $this->addFlash(
+        $this->addFlash(
                 'success',
                 'User has been added'
             );
 
-            return $this->redirectToRoute("tweet_proxy_homepage");
-        }
+        return $this->redirectToRoute('tweet_proxy_homepage');
     }
-
 
     public function profileAction($username)
     {
@@ -91,13 +98,13 @@ class DefaultController extends Controller
                 'User doesn\'t exists'
             );
 
-            return $this->redirectToRoute("tweet_proxy_homepage");
+            return $this->redirectToRoute('tweet_proxy_homepage');
         }
 
         //get tweets
         $tweets = $this->getDoctrine()->getRepository('TweetProxyBundle:Tweets')->getTweetsPerUser($result->getId());
 
-        return $this->render('TweetProxyBundle:Default:profile.html.twig', ['result' => $result, 'tweets' => $tweets]);
+        return $this->render('TweetProxyBundle:Default:profile.html.twig', array('result' => $result, 'tweets' => $tweets));
     }
 
     public function searchAction(Request $request)
@@ -116,7 +123,6 @@ class DefaultController extends Controller
             20
         );
 
-        return $this->render('TweetProxyBundle:Default:search.html.twig', ['pagination' => $pagination]);
+        return $this->render('TweetProxyBundle:Default:search.html.twig', array('pagination' => $pagination));
     }
-
 }

@@ -1,11 +1,21 @@
 <?php
 
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace TweetProxyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tweets
+ * Tweets.
  *
  * @ORM\Table(name="tweets")
  * @ORM\Entity(repositoryClass="TweetProxyBundle\Repository\TweetsRepository")
@@ -49,9 +59,8 @@ class Tweets
      */
     private $tweetId;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -61,7 +70,7 @@ class Tweets
     }
 
     /**
-     * Set tweet
+     * Set tweet.
      *
      * @param string $tweet
      *
@@ -75,7 +84,7 @@ class Tweets
     }
 
     /**
-     * Get tweet
+     * Get tweet.
      *
      * @return string
      */
@@ -85,7 +94,7 @@ class Tweets
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -99,7 +108,7 @@ class Tweets
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -109,9 +118,9 @@ class Tweets
     }
 
     /**
-     * Set userId
+     * Set userId.
      *
-     * @param integer $userId
+     * @param int $userId
      *
      * @return Tweets
      */
@@ -123,7 +132,7 @@ class Tweets
     }
 
     /**
-     * Get userId
+     * Get userId.
      *
      * @return int
      */
@@ -133,9 +142,10 @@ class Tweets
     }
 
     /**
-     * Set userId
+     * Set userId.
      *
-     * @param integer $userId
+     * @param int   $userId
+     * @param mixed $tweetId
      *
      * @return Tweets
      */
@@ -147,7 +157,7 @@ class Tweets
     }
 
     /**
-     * Get userId
+     * Get userId.
      *
      * @return int
      */
@@ -156,4 +166,3 @@ class Tweets
         return $this->tweetId;
     }
 }
-
