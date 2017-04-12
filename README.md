@@ -1,3 +1,44 @@
+Upute za instaliranje:
+1. Postaviti virtual host sa domenom tweetproxy.dev (ja koristim XAMPP)
+a) unutar apache/conf/extra/httpd-vhosts.conf podesiti VirtualHost:
+
+<VirtualHost *:80><br>
+ ServerAdmin webmaster@wm<br>
+ DocumentRoot "E:/xampp/htdocs/symfony/web"<br>
+ ServerName tweetproxy.dev<br>
+ ErrorLog "logs/htdocs-error.log"<br>
+ CustomLog "logs/htdocs-access.log" common<br>
+ <Directory "E:/xampp/htdocs/symfony/web/"><br>
+  Options Indexes FollowSymLinks Includes ExecCGI<br>
+  AllowOverride All<br>
+  Require all granted<br>
+ </Directory REMOVE_THIS><br>
+</VirtualHost REMOVE_THIS><br>
+
+
+
+b) Editirati "hosts" file kako bi mogao resolvati domenu. "hosts" file se nalazi na putanji C:\Windows\System32\drivers\etc
+Unutar filea dodati liniju na kraj filea i sačuvati ga:
+127.0.0.1 tweetproxy.dev
+
+2) Importajte bazu koja je priložena u mailu 
+
+3) Klonirati repozitorij pomoću gita (https://github.com/trbsi/tweetproxy)
+
+4) Unutar foldera app/config dodati file parameters.yml (kopirati podatke iz parameters.yml.dist te podesiti svojim podacima)
+
+5) Kada se repozitorij pull-a unutar folder pomoću terminala pokrenuti komandu "composer install".
+
+6) Kada composer instalira sve što treba otvoriti sajt na adresi http://tweetproxy.dev
+.
+7) Dodati nekog usera u bazu i kliknuti na "Cron" link u headeru kako bi se popunila tablica sa tweetovima.
+
+
+ Na sajtu se nalazi 2 linka u top headeru: "All users" i "Cron". Cron link bi se inače trebao pokretati pomoću cronjob-a kako bi se periodički uhvatili novi tweetovi svakog korisnika i dodali u bazu da proces bude brži, no ja sam dodao link kako bi se moglo pristupiti i odraditi ručno.
+
+Tehnologije koje ste naveli da se trebaju koristiti sam koristio, uključujući i fulltext search. Ukoliko imate pitanja ili ukoliko treba nešto ispraviti ili dodati molim vas recite. Za izradu zadatka trebalo mi je 2 i pol dana.
+
+
 Symfony Standard Edition
 ========================
 
